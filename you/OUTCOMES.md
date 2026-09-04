@@ -7,7 +7,7 @@ more than the wins here, because they are the ones that change what you do next 
 
 ## Log
 
-### {{Thing}} — {{date}}
+### {{Thing}}, {{date}}
 
 - **What happened:**
 - **What I did that I would do again:**

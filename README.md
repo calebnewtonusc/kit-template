@@ -63,6 +63,14 @@ because it shapes every other file.
 directory is deliberately excluded from routing, so a half-built kit never catches live
 work. Leave it that way and your finished kit stays invisible forever.
 
+## The standard
+
+apply-kit and accommodations-kit are the bar, and `tools/kit-check.sh` enforces it:
+nineteen checks with every floor measured from the weaker of those two. Both pass all
+nineteen. A fresh clone of this template fails five, which is the point.
+
+The four things no script can check are in [STANDARD.md](STANDARD.md).
+
 ## Where this gets used from
 
 Installed as part of [Chewbacca](https://github.com/calebnewtonusc/Chewbacca), whose

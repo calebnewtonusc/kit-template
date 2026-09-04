@@ -113,6 +113,12 @@ Anything with its own clock jumps the queue. In apply-kit that is recommender le
 because other people's calendars do not wait for your process. Name yours in the phases
 section or it will get skipped.
 
+## The bar
+
+apply-kit and accommodations-kit. Not "something in this shape," those two specifically.
+`tools/kit-check.sh` measures the shape and [STANDARD.md](STANDARD.md) carries the four
+questions it cannot measure. Read both before you decide you are finished.
+
 ## Testing it before you hand it to anybody
 
 Four checks, all of which have caught real bugs:
