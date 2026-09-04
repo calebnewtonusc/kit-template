@@ -24,6 +24,16 @@ TODAY=$(date +%Y-%m-%d)
 
 FILES=$(find you applications -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort)
 
+# Drop any file still carrying the unfilled-template marker. This must happen
+# here and not inside awk: the marker sits at the bottom of a template, so an
+# awk rule would only see it after already processing every row above it.
+KEEP=""
+for f in $FILES; do
+  grep -q 'TEMPLATE: unfilled' "$f" 2>/dev/null && continue
+  KEEP="$KEEP $f"
+done
+FILES="$KEEP"
+
 if [ -z "$FILES" ]; then
   echo "Nothing to check yet."
   exit 0
@@ -69,9 +79,6 @@ FNR == 1 {
   checked_col = 0
 }
 
-# Skip unfilled templates entirely. Nothing to go stale in a blank form.
-/TEMPLATE: unfilled/ { skip[FILENAME] = 1 }
-
 # Header row of a markdown table: learn which column holds the date.
 /^\|/ && /[Cc]hecked/ && !/^\| *[-:]/ {
   n = split($0, cols, /\|/)
@@ -106,7 +113,6 @@ FNR == 1 {
 
 # Org claims carry their date inline rather than in a column.
 /[Cc]hecked *[0-9]{4}-[0-9]{2}-[0-9]{2}/ {
-  if (skip[FILENAME]) next
   line = $0
   match(line, /[0-9]{4}-[0-9]{2}-[0-9]{2}/)
   d = substr(line, RSTART, RLENGTH)

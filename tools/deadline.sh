@@ -48,14 +48,22 @@ if [ -n "$1" ]; then
 fi
 
 FILES=$(find PROGRESS.md you work -name '*.md' 2>/dev/null | sort)
+
+# Drop any file still carrying the unfilled-template marker. This must happen
+# here and not inside awk: the marker sits at the bottom of a template, so an
+# awk rule would only see it after already processing every row above it.
+KEEP=""
+for f in $FILES; do
+  grep -q 'TEMPLATE: unfilled' "$f" 2>/dev/null && continue
+  KEEP="$KEEP $f"
+done
+FILES="$KEEP"
 [ -z "$FILES" ] && { echo "Nothing dated yet."; exit 0; }
 
 # Pass 1 emits "<delta>\t<date>\t<label>\t<file>", sort orders it, pass 2 formats.
 awk -v today="$TODAY" "$DAYS_AWK"'
 BEGIN { nowdays = days(today) }
-/TEMPLATE: unfilled/ { skip[FILENAME] = 1 }
 /^\|/ {
-  if (skip[FILENAME]) next
   if ($0 !~ /[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/) next
   n = split($0, c, /\|/)
   label = c[2]
