@@ -124,6 +124,16 @@ sh tools/deadline.sh                   handles no dates, past dates, and sorts c
 python3 -c "import json;json.load(open('.claude/settings.json'))"
 ```
 
+```
+grep -n "{{" .kit      must come back empty, and status must read: ready
+kits                   your kit must appear in the list
+```
+
+**The `.kit` marker is the difference between a kit and a folder.** A clone starts with
+`status: template`, which excludes it from routing on purpose so a half-built kit never
+catches live work. If you never change it, your finished kit is invisible to every future
+session and somebody eventually rebuilds it.
+
 Then simulate a ZIP download, because that is how most people will get it and it strips
 the executable bit off every script:
 

@@ -2,9 +2,14 @@
 # Chewbacca's session hook scans for these and routes work to an existing kit
 # instead of rebuilding one or answering turn by turn.
 #
-# Keep use-when concrete. It is matched against what somebody actually says.
+# FILL THIS IN. Until you do, status stays "template" and this directory is
+# deliberately excluded from routing, so a half-built kit never catches live work.
+#
+# use-when is the important line. It gets matched against what somebody actually
+# types, so write it in their words. "a professor ignoring my accommodation letter"
+# routes correctly. "post-approval implementation failures" does not.
 
-name: kit-template
-domain: The spine every other kit is built from. Not a kit itself
-use-when: building a new kit, or deciding whether something should be a kit at all
+name: {{NAME}}-kit
+domain: {{ONE LINE: WHAT THIS COVERS}}
+use-when: {{CONCRETE PHRASES SOMEBODY WOULD ACTUALLY SAY, COMMA SEPARATED}}
 status: template

@@ -52,12 +52,16 @@ cd my-kit && rm -rf .git && git init
 Then replace every `{{PLACEHOLDER}}`:
 
 ```
-grep -rn "{{" --include="*.md" --include="*.sh" .
+grep -rn "{{" --include="*.md" --include="*.sh" . ; grep -n "{{" .kit
 ```
 
 Start with `CLAUDE.md`. The phases are the kit and everything else supports them. Then
 rule 4, your hard line, which is the one thing this kit refuses to do. Write that early,
 because it shapes every other file.
+
+**Finish with `.kit`, and change `status` to `ready`.** While it says `template` the
+directory is deliberately excluded from routing, so a half-built kit never catches live
+work. Leave it that way and your finished kit stays invisible forever.
 
 ## Where this gets used from
 
