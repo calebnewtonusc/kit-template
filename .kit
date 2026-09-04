@@ -1,0 +1,10 @@
+# This file marks a directory as a kit, so an agent can find it without being told.
+# Chewbacca's session hook scans for these and routes work to an existing kit
+# instead of rebuilding one or answering turn by turn.
+#
+# Keep use-when concrete. It is matched against what somebody actually says.
+
+name: kit-template
+domain: The spine every other kit is built from. Not a kit itself
+use-when: building a new kit, or deciding whether something should be a kit at all
+status: template
