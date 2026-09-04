@@ -59,6 +59,12 @@ Start with `CLAUDE.md`. The phases are the kit and everything else supports them
 rule 4, your hard line, which is the one thing this kit refuses to do. Write that early,
 because it shapes every other file.
 
+## Where this gets used from
+
+Installed as part of [Chewbacca](https://github.com/calebnewtonusc/Chewbacca), whose
+`kit-builder` skill runs the seven-property test and scaffolds from this repo. You do not
+have to use Chewbacca; cloning directly works exactly the same.
+
 ## Built from
 
 [apply-kit](https://github.com/calebnewtonusc/apply-kit), which walks somebody through
