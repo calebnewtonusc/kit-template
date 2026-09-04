@@ -1,0 +1,3 @@
+.DS_Store
+you/uploads/*
+!you/uploads/README.md
