@@ -7,8 +7,8 @@ meets it or it does not ship.
 sh tools/kit-check.sh
 ```
 
-Nineteen checks. Both reference kits pass all nineteen with no warnings. A fresh clone of
-this template fails five, which is correct: an empty spine is not a kit.
+Twenty-four checks. Both reference kits pass all of them with no warnings. A fresh clone
+of this template fails five, which is correct: an empty spine is not a kit.
 
 ## Where the numbers come from
 
@@ -48,6 +48,30 @@ kit exists to prevent.
 to start.** Somebody arrives frightened and short on time. A README that assumes they
 already have Claude Code running loses them before the first question.
 
+**The README opens with a start a stranger can't get wrong.** The first section names
+the app and the tab (the Claude desktop app, the `</>` icon at the top left for the Code
+tab) and says why: the chat tab can't touch their computer, and it will send them to
+Settings, Connectors for a GitHub link they don't need. Then one paste-ready prompt that
+does the whole setup. The checker fails a README without it, and fails one that links a
+repo other than this kit's own.
+
+**Anything the command line can do, the agent does.** No "open this page and click
+Accept" when `gh api -X PATCH user/repository_invitations/<id>` accepts the invite, and
+no "Download ZIP" when `git clone` exists. A browser step is a place to get lost.
+
+**Every popup is announced before it appears.** A password prompt, a device code, a
+Command Line Tools window, a sign-in that opens in a separate window behind Claude. Say
+what it is and what to click before it shows up, because a window nobody expected reads
+as the setup being stuck.
+
+**The docs match the repo today.** Every `/play` and `tools/` file the README names has
+to exist, and the checker fails when one doesn't. If your kit points at another repo
+whose layout can change, add a test that fails when the docs describe the old one.
+
+**The first person through writes up their snags.** The README tells them to have their
+agent write a PDF to `~/Downloads` listing every snag they hit, and send it to Caleb.
+The first stranger finds what the author can't see.
+
 **No em dashes, no leftover placeholders.**
 
 ## What a person still has to judge
@@ -81,7 +105,7 @@ pointless, it is drawn wrong.
 ## Before you call one finished
 
 ```
-sh tools/kit-check.sh                              nineteen checks, zero failures
+sh tools/kit-check.sh                              twenty-four checks, zero failures
 kits                                               it appears, and not as a template
 printf '{"prompt":"<a real sentence>","cwd":"/"}' | ~/.claude/hooks/kit-route.sh
 ```

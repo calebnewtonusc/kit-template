@@ -113,9 +113,50 @@ else
     || fail "README never says what it refuses to do; that belongs where users read it"
   grep -qi 'troubleshoot' README.md && ok "README has troubleshooting" \
     || warn "no troubleshooting section; every reference kit has one"
-  grep -qiE 'claude\.com/product/claude-code|install claude' README.md \
+  grep -qiE 'claude\.com/product/claude-code|claude\.com/download|install claude' README.md \
     && ok "README tells a beginner how to start" \
     || warn "README assumes they already have Claude Code running"
+fi
+
+# --- The start: one paste, in the Code tab --------------------------------
+# On 2026-10-27 a first-time user spent an hour on a setup repo and hit five
+# walls: she was in the chat tab, which can't touch her computer; she clicked
+# through browser steps a script could do; a sign-in window hid behind Claude;
+# and the docs described files the repo no longer had. These checks are the
+# parts of that a script can see.
+if [ -f README.md ]; then
+  # The first section has to name the tab, so it's checked in the opening lines.
+  if head -40 README.md | grep -q 'Code tab' \
+     && awk '/^ *```/{inb=!inb; next} inb && /github\.com\//{f=1} END{exit !f}' README.md; then
+    ok "README opens with which tab to use and a paste prompt"
+  else
+    fail "README has no start section naming the Code tab with one paste-ready prompt (see MAKING-A-KIT.md, The start)"
+  fi
+  grep -qiE 'pop ?-?up|separate window|behind (the )?claude' README.md \
+    && ok "README warns about windows and prompts before they appear" \
+    || warn "README never warns about popups, password prompts or separate windows"
+  grep -qi 'snag' README.md \
+    && ok "README asks the first person through for a snag list" \
+    || warn "README never asks the first person through to write up their snags"
+
+  # Drift: every play and tool the README names has to exist today.
+  MISSING=""
+  for c in $(grep -oE '`/[a-z][a-z0-9-]*`' README.md | tr -d '`/' | sort -u); do
+    [ -f ".claude/commands/$c.md" ] || MISSING="$MISSING /$c"
+  done
+  for t in $(grep -oE 'tools/[A-Za-z0-9_.-]+' README.md | sed 's/\.*$//' | sort -u); do
+    [ -e "$t" ] || MISSING="$MISSING $t"
+  done
+  [ -z "$MISSING" ] && ok "every play and tool the README names exists" \
+    || fail "README names things this repo doesn't have:$MISSING"
+
+  KN=$(grep -m1 '^name:' .kit 2>/dev/null | sed 's/^name: *//')
+  case "$KN" in
+    ""|*'{{'*) ;;
+    *) grep -qE "github\.com/[A-Za-z0-9_-]+/$KN([^A-Za-z0-9_-]|\$)" README.md \
+         && ok "README links this kit's own repo ($KN)" \
+         || fail "README never links github.com/<owner>/$KN, so the paste prompt points somewhere else" ;;
+  esac
 fi
 
 # --- House writing rules --------------------------------------------------

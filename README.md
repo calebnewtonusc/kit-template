@@ -5,6 +5,38 @@ walks them through a process they have never done before and will not do again f
 
 This is not a kit. It is what is left after you take the domain out of one.
 
+## Start here: one paste, in the Code tab
+
+Open the Claude desktop app ([download it here](https://claude.com/download)) and click
+the `</>` icon at the top left to switch to the Code tab. The regular chat tab can't
+touch your computer, so it can't copy this repo or write files, and it may tell you to
+connect GitHub in Settings, Connectors. You don't need that: this repo is public, so
+copying it needs no GitHub account. The Code tab needs a paid Claude plan (Pro or
+higher).
+
+Pick your home folder as the folder to work in, and paste this, with your idea in the
+last line:
+
+```
+Build me a new kit from https://github.com/calebnewtonusc/kit-template.
+Copy it with git clone into a new folder in my home folder named after the
+kit, delete its .git and start a fresh repo. Before anything pops up (a
+window, a password prompt, a sign-in), tell me what it is and what to click.
+Then read MAKING-A-KIT.md, run its seven-property test on my idea, and if it
+passes, build the kit until sh tools/kit-check.sh has zero failures. The idea:
+```
+
+What can pop up, so nothing surprises you:
+
+- On a Mac that has never used developer tools, a macOS window asking to install the
+  Command Line Tools (that's where `git` comes from). It can open behind the Claude
+  window, so check the Dock if nothing seems to happen. Click Install and wait.
+- Claude asking permission to run a command or edit a file. Allow it; that's the work.
+
+Nothing here asks for a password or a GitHub sign-in. If you're one of the first people
+through, finish by saying "write a PDF to my Downloads folder listing every snag I hit"
+and send it to Caleb, so the next person doesn't hit them.
+
 ## Skill or kit
 
 There are thousands of Claude skills. A skill is one `SKILL.md` that loads when relevant,
@@ -42,7 +74,9 @@ macOS, Linux and Git Bash.
 
 **Four skills.** Honesty guard, unasked questions, reader POV, no-slop writing.
 
-## Using it
+## Using it by hand
+
+The paste above does this for you. In a terminal it's:
 
 ```
 git clone https://github.com/calebnewtonusc/kit-template my-kit
@@ -66,8 +100,9 @@ work. Leave it that way and your finished kit stays invisible forever.
 ## The standard
 
 apply-kit and accommodations-kit are the bar, and `tools/kit-check.sh` enforces it:
-nineteen checks with every floor measured from the weaker of those two. Both pass all
-nineteen. A fresh clone of this template fails five, which is the point.
+twenty-four checks, with every floor measured from the weaker of those two, plus the
+start section every kit's README opens with. Both pass all of them. A fresh clone of
+this template fails five, which is the point.
 
 The four things no script can check are in [STANDARD.md](STANDARD.md).
 

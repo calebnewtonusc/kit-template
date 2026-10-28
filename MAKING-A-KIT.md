@@ -60,6 +60,40 @@ kit does not tell you what your rights are, it helps you get organized enough to
 somebody who knows. Write yours before you write anything else, because it shapes every
 other file, and a kit without one will eventually do real damage to somebody.
 
+## The start: the README's first section
+
+The README is the only file a stranger reads, and most of them aren't coders. The first
+person through a setup repo on 2026-10-27 lost an hour to five walls, every one of them
+the docs' fault: she was in the chat tab, which can't touch her computer, so it sent her
+to Settings, Connectors to link GitHub, which she didn't need; she accepted an invite by
+hand that a script could accept; a link went to the GitHub homepage because the browser
+wasn't signed in; a sign-in window opened behind Claude; and the docs described a layout
+the repo no longer had.
+
+So every kit's README opens, right under its first paragraph, with this shape:
+
+- **Which app and which tab, and why.** The Claude desktop app, then the `</>` icon at
+  the top left for the Code tab. The chat tab can't touch their computer. A paid plan
+  (Pro or higher) is needed for the Code tab.
+- **One paste-ready prompt that does the whole setup.** It names this kit's repo URL,
+  copies it with `git clone` (public repos need no sign-in), reads `CLAUDE.md` and
+  `PROGRESS.md`, and asks the first question. For a private repo the prompt has the agent
+  run `gh auth login` and accept the invite with
+  `gh api user/repository_invitations` then `gh api -X PATCH user/repository_invitations/<id>`.
+  No browser step the command line can replace.
+- **What will pop up, before it does.** Password prompts (typing shows nothing), device
+  codes, the macOS Command Line Tools window, a sign-in that opens in a separate window
+  behind Claude. Say what each is and what to click.
+- **How to come back.** Next time, open the Code tab and pick the kit's folder.
+- **The snag list.** The first person through has their agent write a PDF to
+  `~/Downloads` listing every snag they hit, and sends it to Caleb.
+
+Keep the terminal route below it for people who'd rather type `claude` themselves.
+`tools/kit-check.sh` fails a README with no Code tab and no paste prompt in its opening,
+fails one whose prompt links a repo other than the `.kit` name, and fails when the README
+names a `/play` or a `tools/` file that doesn't exist. If the kit points at another repo
+whose layout changes, add your own test that greps the docs for the old layout.
+
 ## What you inherit and should not rewrite
 
 - **The conversation rules.** Never ask permission, drive the conversation, three to five
